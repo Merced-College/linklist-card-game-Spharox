@@ -1,5 +1,8 @@
-//package linkedLists;
+//Pablo Mendoza 
+//CPSC-39
+//11/29/2024
 
+import java.util.Arrays;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,59 +11,45 @@ import java.io.IOException;
 //import java.util.ArrayList;
 //import java.util.List;
 import java.util.Scanner;
-
+import java.util.LinkedList;
 
 
 public class CardGame {
-	
-	private static LinkList cardList = new LinkList();  // make list
 
-	public static void main(String[] args) {
+    //used princton code
+    public static void main(String[] args) {
+        //array of suits
+        String[] SUITS = {
+            "Clubs", "Diamonds", "Hearts", "Spades"
+        };
 
-		// File name to read from
-        String fileName = "cards.txt"; // Ensure the file is in the working directory or specify the full path
+        //array of ranks
+        String[] RANKS = {
+            "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "Jack", "Queen", "King", "Ace"
+        };
 
-        // Read the file and create Card objects
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                // Split the line into components
-                String[] details = line.split(","); // Assuming comma-separated values
-                if (details.length == 4) {
-                    // Parse card details
-                    String suit = details[0].trim();
-                    String name = details[1].trim();
-                    int value = Integer.parseInt(details[2].trim());
-                    String pic = details[3].trim();
-
-                    // Create a new Card object
-                    Card card = new Card(suit, name, value, pic);
-
-                    // Add the Card object to the list
-                    cardList.add(card);
-                } else {
-                    System.err.println("Invalid line format: " + line);
-                }
+        // initialize deck
+        int n = SUITS.length * RANKS.length;
+        String[] deck = new String[n];
+        for (int i = 0; i < RANKS.length; i++) {
+            for (int j = 0; j < SUITS.length; j++) {
+                deck[SUITS.length*i + j] = RANKS[i] + " of " + SUITS[j];
             }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
         }
 
-        // Print the loaded cards
-        System.out.println("Cards loaded:");
-        cardList.displayList();
-		
-		Card[] playerHand = new Card[5];
-		for(int i = 0; i < playerHand.length; i++)
-			playerHand[i] = cardList.getFirst();
-		
-		System.out.println("players hand");
-		for(int i = 0; i < playerHand.length; i++)
-			System.out.println(playerHand[i]);
-		
-		System.out.println();
-		System.out.println("the deck");
-		cardList.displayList();
+        // shuffle
+        for (int i = 0; i < n; i++) {
+            int r = i + (int) (Math.random() * (n-i));
+            String temp = deck[r];
+            deck[r] = deck[i];
+            deck[i] = temp;
+        }
+
+        // print shuffled deck
+        for (int i = 0; i < n; i++) {
+            System.out.println(deck[i]);
+        }
 
 	}//end main
 
