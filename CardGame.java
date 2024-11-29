@@ -16,8 +16,21 @@ import java.util.LinkedList;
 
 public class CardGame {
 
-    //used princton code
     public static void main(String[] args) {
+        LinkedList<Card> mainDeck =  new LinkedList<>();
+        makeLinkedList(mainDeck);
+
+
+
+    }//end main()
+
+    public static void blackJack(LinkedList<Card> mainDeck){
+        
+    }
+
+    //princeton code
+    public static void makeLinkedList(LinkedList<Card> mainDeck){
+
         //array of suits
         String[] SUITS = {
             "Clubs", "Diamonds", "Hearts", "Spades"
@@ -25,32 +38,33 @@ public class CardGame {
 
         //array of ranks
         String[] RANKS = {
-            "2", "3", "4", "5", "6", "7", "8", "9", "10",
-            "Jack", "Queen", "King", "Ace"
+            "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+            "Jack", "Queen", "King"
         };
 
-        // initialize deck
+        // initialize deck (modified to create Card class objects, and to then add them to LinkedList)
         int n = SUITS.length * RANKS.length;
-        String[] deck = new String[n];
         for (int i = 0; i < RANKS.length; i++) {
             for (int j = 0; j < SUITS.length; j++) {
-                deck[SUITS.length*i + j] = RANKS[i] + " of " + SUITS[j];
+                Card card = new Card(i + 1, SUITS[j], RANKS[i]);
+                mainDeck.add(card);
             }
         }
 
-        // shuffle
+        // shuffle (modified to shuffle the LinkedList)
         for (int i = 0; i < n; i++) {
             int r = i + (int) (Math.random() * (n-i));
-            String temp = deck[r];
-            deck[r] = deck[i];
-            deck[i] = temp;
+            Card temp = mainDeck.get(r);
+            mainDeck.set(r, mainDeck.get(i));
+            mainDeck.set(i, temp);
         }
 
-        // print shuffled deck
+        /* //prints shuffled deck (modified to work on LinkedList)
         for (int i = 0; i < n; i++) {
-            System.out.println(deck[i]);
+            System.out.println(mainDeck.get(i));
         }
+        */
 
-	}//end main
+	}//end makeArray()
 
 }//end class
