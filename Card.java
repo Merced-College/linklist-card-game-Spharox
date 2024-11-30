@@ -22,6 +22,10 @@ public class Card{
 		return RANK;
 	}
 
+	public String rankAndSuit(){
+		return RANK + " of " + SUIT;
+	}
+
 	public String toString(){
 		return RANK + " of " + SUIT + ", with value of " + value;
 	}
